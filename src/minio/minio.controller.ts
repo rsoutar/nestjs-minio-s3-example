@@ -18,23 +18,17 @@ export class FileController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const bucketName = 'itsm';
     const objectName = `${Date.now()}-${file.originalname}`;
     const fileBuffer = file.buffer;
 
-    const url = await this.minioService.uploadFile(
-      bucketName,
-      objectName,
-      fileBuffer,
-    );
+    const url = await this.minioService.uploadFile(objectName, fileBuffer);
     return { url };
   }
 
   @Get('list')
   async listFiles(@Res() res: Response) {
-    const bucketName = 'itsm';
     try {
-      const objects = await this.minioService.listObjects(bucketName);
+      const objects = await this.minioService.listObjects();
       res.json(objects);
     } catch (err) {
       console.error('Error listing objects:', err);
@@ -44,12 +38,8 @@ export class FileController {
 
   @Get(':filename')
   async getFile(@Param('filename') filename: string, @Res() res: Response) {
-    const bucketName = 'itsm';
     try {
-      const fileStream = await this.minioService.getFileStream(
-        bucketName,
-        filename,
-      );
+      const fileStream = await this.minioService.getFileStream(filename);
       res.setHeader(
         'Content-Disposition',
         `attachment; filename="${filename}"`,

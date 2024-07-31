@@ -40,11 +40,24 @@ This example project is designed to help developers get started with integrating
 
 Once the application is running, you can use the provided endpoints to interact with Minio:
 
-- **Upload a file:** `POST /upload`
-- **List files:** `GET /files`
-- **Get a file:** `GET /files/:filename`
+- **List files:**
 
-Refer to the code and comments for more details on how to use these endpoints.
+  ```bash
+  curl http://localhost:3000/files/list
+  ```
+
+- **Upload a file:**
+
+  ```bash
+  curl -X POST -H "Content-Type: multipart/form-data" -F "file=@/path/to/your/file.jpg" http://localhost:3000/files/upload
+  ```
+
+- **Download a file:**
+  ```bash
+  curl http://localhost:3000/files/yourfile.jpg -O
+  ```
+
+Replace `/path/to/your/file.jpg` with the actual path to the file you want to upload, and `yourfile.jpg` with the name of the file you want to download.
 
 ## Contributing
 
