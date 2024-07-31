@@ -11,8 +11,8 @@ This example project is designed to help developers get started with integrating
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/rsoutar/nestjs-minio-s3-example.git
+   cd nestjs-minio-s3-example
    ```
 
 2. Install the dependencies:
